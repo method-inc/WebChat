@@ -278,6 +278,28 @@ textarea[disabled] {
   transform: translate3d(0, 0, 0);
   opacity: 1;
 }
+.modal-view {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 6;
+  -webkit-transform: translate3d(0, 120%, 0);
+  -moz-transform: translate3d(0, 120%, 0);
+  -ms-transform: translate3d(0, 120%, 0);
+  transform: translate3d(0, 120%, 0);
+  -webkit-transition: 0.4s ease-in-out -webkit-transform;
+  -moz-transition: 0.4s ease-in-out -moz-transform;
+  -ms-transition: 0.4s ease-in-out -ms-transform;
+  transition: 0.4s ease-in-out transform;
+}
+.modal-view-show {
+  -webkit-transform: translate3d(0, 0%, 0);
+  -moz-transform: translate3d(0, 0%, 0);
+  -ms-transform: translate3d(0, 0%, 0);
+  transform: translate3d(0, 0%, 0);
+}
 
 /* Visual Styles */
 .navigation-title {

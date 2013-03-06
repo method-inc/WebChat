@@ -68,13 +68,45 @@
       return false;
     },
 
-    settings: function() {},
+    settings: function() {
+      var modal = new ModalView();
+      modal.pushView(new ChatSettings({ collection: this.collection }));
+      $(document.body).append(modal.el);
+      modal.show();
+      return false;
+    },
 
     cleanup: function() {
       delete this.$textField, this.$button;
       this._cleanup();
     }
   });
+
+
+  var ChatSettings = BaseView.extend({
+    title: 'Chat Settings',
+    rightBarButtons: [
+      { html: '<button class="barButton saveBarButton">Save</button>', click: 'done' }
+    ],
+
+    initialize: function() {
+      this.render();
+    },
+
+    render: function() {
+      this.$el.html(Templates.settings());
+      this.$('#settings-username').val(this.collection.username === 'Anonymous' ? '' : this.collection.username);
+    },
+
+    done: function() {
+      this.collection.username = this.$('#settings-username').val();
+      this.navigation.hide(function() {
+        this.cleanup();
+      });
+    }
+
+  });
+
 
   RootView.pushView( new ChatList() );
 
