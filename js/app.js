@@ -24,19 +24,28 @@
 
     render: function() {
       this.$el.empty();
-      if(this.collection.length === 0) {
-        return this.$el.html('<h2 class="no-messages">No Messages</h2>');
+      this.$el.html(Templates['messages-list']({
+        has_messages: this.collection.length > 0,
+        messages: this.collection.map(this.renderMessage, this).join('')
+      }));
+      var last_message = this.$('.chat-message:last-child');
+      if(last_message && last_message.length > 0) {
+        _.defer(function() { last_message[0].scrollIntoView(); });
       }
-      var ul = $('<ul class="chat-messages"></ul>');
-      this.collection.each(function(message) {
-        ul.append('<li class="chat-message"><p class="chat-message-text">' + message.get('message') + '</p><h3 class="chat-message-name">' + message.get('user') + '</h3></li>');
-      }, this);
-
-      this.$el.append(ul);
+    },
+    renderMessage: function(message) {
+      return Templates.message(message.toJSON());
     },
 
     addMessage: function(message) {
-      this.$('.chat-messages').append('<li class="chat-message"><p class="chat-message-text">' + message.get('message') + '</p><h3 class="chat-message-name">' + message.get('user') + '</h3></li>')
+      var $message = $(this.renderMessage(message)),
+          scrollParent = this.$el.parent(),
+          isAtBottom = (scrollParent.scrollTop() + scrollParent.height() >= scrollParent[0].scrollHeight - 10);
+      this.$('.chat-messages').append($message);
+      // scroll to message if they are already scrolled to the bottom
+      if(isAtBottom) {
+        $message[0].scrollIntoView();
+      }
     },
 
     settings: function() {}
