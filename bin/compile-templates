@@ -1,0 +1,33 @@
+#!/usr/bin/env node
+var fs = require('fs'),
+    path = require('path'),
+    _ = require('../vendor/underscore/underscore-min');
+
+// set the `variable` template setting to avoid using `with`
+var templateSettings = { "variable": "data" },
+    varName = 'Templates';
+
+var origTemplateSettings = _.templateSettings;
+_.templateSettings = _.extend({}, _.templateSettings, templateSettings || {});
+
+var compiled =
+  fs.readdirSync('../templates')
+  .map(function(file) {
+    return {
+      name: path.basename(file, '.html'),
+      val: fs.readFileSync('../templates/' + file).toString()
+    };
+  })
+  .reduce(function(current, template) {
+    return current + 'Templates["' + template.name + '"] = ' + _.template( template.val ).source + '\n';
+  }, '');
+
+_.templateSettings = origTemplateSettings;
+
+fs.writeFileSync('../js/templates.js',
+  ';(function(exports) { \n\
+   exports.' + varName + ' = exports.' + varName + ' || {}; \n\
+   var Templates = exports.' + varName + '; \n\
+   ' + compiled + '\n\
+   })(this);'
+);
