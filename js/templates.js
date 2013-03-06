@@ -3,11 +3,11 @@
    var Templates = exports.Templates; 
    Templates["message"] = function(data){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
-__p+='<li class="chat-message" >\n  <p class="chat-message-text">'+
-((__t=( data.message ))==null?'':__t)+
-'</p>\n  <h3 class="chat-message-user" >'+
+__p+='<li class="chat-message" >\n  <h3 class="chat-message-user" >'+
 ((__t=( data.user ))==null?'':__t)+
-'</h3>\n</li>';
+'</h3>\n  <p class="chat-message-text">'+
+((__t=( data.message ))==null?'':__t)+
+'</p>\n</li>';
 return __p;
 }
 Templates["messages-list"] = function(data){

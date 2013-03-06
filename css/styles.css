@@ -1,3 +1,5 @@
+* { box-sizing: border-box; }
+
 /* BUTTONS */
 .btn {
   border-radius: 5px;
@@ -31,14 +33,18 @@ a.barButton,
 button.barButton {
   display: inline-block;
   color: #fff;
+  background: -webkit-linear-gradient(top, #9fa9c1 0%, #4d608d 100%);
+  background: linear-gradient(to bottom, #9fa9c1 0%, #4d608d 100%);
   text-decoration: none;
-  border: 1px solid #202020;
+  border: 1px solid rgba(0,0,0,0.4);
+  box-shadow: 0 1px 1px rgba(255, 255, 255, 0.5),
+              inset 0 1px 0 #8a93a6;
+  text-shadow: rgba(0,0,0,0.8) 0 -1px 0;
   border-radius: 5px;
   font-size: 0.75rem;
   line-height: 1em;
   padding: 8px;
-  background: transparent;
-  font-weight: bold;
+  font-weight: normal;
   vertical-align: middle;
   font-family: Helvetica, Arial, sans-serif;
   margin: 0;
@@ -275,13 +281,14 @@ textarea[disabled] {
 
 /* Visual Styles */
 .navigation-title {
-  background: -webkit-linear-gradient(top, #6a6a6a 0%, #2d2d2d 50%, #000 50%);
-  background: linear-gradient(to bottom, #6a6a6a 0%, #2d2d2d 50%, #000 50%);
-  border-top: 1px solid #8a8a8a;
+  background: -webkit-linear-gradient(top, #c3cbdc 0%, #627296 100%);
+  background: linear-gradient(top, #c3cbdc 0%, #627296 100%);
+  border-top: 1px solid #fff;
+  border-bottom: 1px solid #4a5b7f;
   padding: 0 10px;
   margin: 0;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
+  box-shadow: 0 0 4px rgba(0,0,0,0.4);
+  z-index: 2;
   position: relative;
   -webkit-transform: translate3d(0, 0, 0);
   -moz-transform: translate3d(0, 0, 0);
@@ -293,7 +300,7 @@ textarea[disabled] {
   line-height: 40px;
   vertical-align: middle;
   margin: 0;
-  text-shadow: #000 0 -1px 0;
+  text-shadow: rgba(0,0,0,0.8) 0 -1px 0;
   color: #fff;
   font-family: Helvetica, Arial, sans-serif;
   text-transform: none;
@@ -317,8 +324,56 @@ textarea[disabled] {
   overflow: auto;
   left: 0;
   right: 0;
-  top: 41px;
+  top: 42px;
   bottom: 0;
+  z-index: 1;
   padding: 20px 16px;
-  background-color: #e7e7e7;
+  background-color: #dde2ed;
+}
+
+
+/* CHAT MESSAGE STYLES */
+.chat-messages {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.chat-message {
+  margin: 0 0 7px;
+  padding: 9px;
+  background: linear-gradient(to bottom, #eaeaea 0%, #ddd 10%, #ddd 90%, #f4f4f4 100%);
+  border-radius: 8px;
+  width: 60%;
+  border: 1px solid #95979d;
+  box-shadow: 0 0 2px 0 rgba(0,0,0,0.2);
+  position: relative;
+}
+.chat-message:after {
+  content: '';
+  display: block;
+  position: absolute;
+  left: 6px;
+  right: 6px;
+  top: 0;
+  height: 12px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.4);
+}
+.chat-message-mine {
+  background: linear-gradient(to bottom, #a5c0fc 0%, #a8c4fc 10%, #abc8fc 90%, #e8feff 100%);
+  box-shadow: 0 0 2px 1px rgba(0,0,0,0.3);
+  border-color: #293571;
+  margin-left: 40%;
+}
+
+.chat-message-user {
+  margin: 0 0 0.5em;
+  font-size: 12px;
+  font-weight: bold;
+}
+.chat-message-text {
+  font-size: 12px;
+  line-height: 1.25em;
+  margin: 0;
 }
