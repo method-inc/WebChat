@@ -342,6 +342,7 @@ textarea[disabled] {
 .chat-message {
   margin: 0 0 7px;
   padding: 9px;
+  background: -webkit-linear-gradient(top, #eaeaea 0%, #ddd 10%, #ddd 90%, #f4f4f4 100%);
   background: linear-gradient(to bottom, #eaeaea 0%, #ddd 10%, #ddd 90%, #f4f4f4 100%);
   border-radius: 8px;
   width: 60%;
@@ -361,6 +362,7 @@ textarea[disabled] {
   background: rgba(255, 255, 255, 0.4);
 }
 .chat-message-mine {
+  background: -webkit-linear-gradient(top, #a5c0fc 0%, #a8c4fc 10%, #abc8fc 90%, #e8feff 100%);
   background: linear-gradient(to bottom, #a5c0fc 0%, #a8c4fc 10%, #abc8fc 90%, #e8feff 100%);
   box-shadow: 0 0 2px 1px rgba(0,0,0,0.3);
   border-color: #293571;
