@@ -1,4 +1,4 @@
-<li class="chat-message" >
+<li class="chat-message <%= (data.mine ? 'chat-message-mine' : '') %>" >
   <h3 class="chat-message-user" ><%= data.user %></h3>
   <p class="chat-message-text"><%= data.message %></p>
 </li>

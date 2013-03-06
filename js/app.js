@@ -13,7 +13,8 @@
     ],
 
     events: {
-      //"click .message": 'goToMessage'
+      "keyup #new-message-text": 'toggleSendButton',
+      "submit #new-message-form": 'send'
     },
 
     initialize: function() {
@@ -28,6 +29,12 @@
         has_messages: this.collection.length > 0,
         messages: this.collection.map(this.renderMessage, this).join('')
       }));
+
+      delete this.$textField, this.$button;
+      this.$textField = this.$('#new-message-text');
+      this.$button = this.$('#new-message-button');
+
+      // scroll to last message if there is one
       var last_message = this.$('.chat-message:last-child');
       if(last_message && last_message.length > 0) {
         _.defer(function() { last_message[0].scrollIntoView(); });
@@ -41,14 +48,32 @@
       var $message = $(this.renderMessage(message)),
           scrollParent = this.$el.parent(),
           isAtBottom = (scrollParent.scrollTop() + scrollParent.height() >= scrollParent[0].scrollHeight - 10);
-      this.$('.chat-messages').append($message);
+      this.$('#chat-messages').append($message);
       // scroll to message if they are already scrolled to the bottom
       if(isAtBottom) {
         $message[0].scrollIntoView();
       }
     },
 
-    settings: function() {}
+    toggleSendButton: function() {
+      if(this.$textField.val() !== '') this.$button.removeAttr('disabled');
+      else this.$button.attr('disabled', 'disabled');
+    },
+
+    send: function() {
+      if(this.$textField.val() === '') return false;
+      this.collection.send(this.$textField.val());
+      this.$textField.val('');
+      this.toggleSendButton();
+      return false;
+    },
+
+    settings: function() {},
+
+    cleanup: function() {
+      delete this.$textField, this.$button;
+      this._cleanup();
+    }
   });
 
   RootView.pushView( new ChatList() );
