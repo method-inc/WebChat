@@ -18,19 +18,21 @@
     },
 
     initialize: function() {
-    	this.render();
     	this.listenTo(this.collection, 'reset', this.render);
     	this.listenTo(this.collection, 'add', this.addMessage);
+    	if(!this.collection.hasUsername()) this.settings();
     },
 
+    // navigation view calls render
     render: function() {
+      delete this.$textField, this.$button;
       this.$el.empty();
+
       this.$el.html(Templates['messages-list']({
         has_messages: this.collection.length > 0,
         messages: this.collection.map(this.renderMessage, this).join('')
       }));
 
-      delete this.$textField, this.$button;
       this.$textField = this.$('#new-message-text');
       this.$button = this.$('#new-message-button');
 
@@ -86,25 +88,39 @@
   var ChatSettings = BaseView.extend({
     title: 'Chat Settings',
     rightBarButtons: [
-      { html: '<button class="barButton saveBarButton">Save</button>', click: 'done' }
+      { html: '<button class="barButton saveBarButton" disabled>Save</button>', click: 'done' }
     ],
 
-    initialize: function() {
-      this.render();
+    events: {
+      "keyup #settings-username": 'updateSaveButton'
     },
+
+    initialize: function() {},
 
     render: function() {
       this.$el.html(Templates.settings());
-      this.$('#settings-username').val(this.collection.username === 'Anonymous' ? '' : this.collection.username);
+      this.$textField = this.$('#settings-username');
+      this.$saveButton = this.navigation.$rightBarButtons.find('.saveBarButton');
+      this.$textField.val(!this.collection.hasUsername() ? '' : this.collection.getUsername());
+      this.updateSaveButton();
+    },
+
+    updateSaveButton: function() {
+      if(this.$textField.val() !== '') this.$saveButton.removeAttr('disabled');
+      else this.$saveButton.attr('disabled', 'disabled');
     },
 
     done: function() {
-      this.collection.username = this.$('#settings-username').val();
+      this.collection.setUsername(this.$('#settings-username').val());
       this.navigation.hide(function() {
         this.cleanup();
       });
-    }
+    },
 
+    cleanup: function() {
+      delete this.$textField, this.$saveButton;
+      this._cleanup();
+    }
   });
 
 

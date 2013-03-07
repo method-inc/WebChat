@@ -88,6 +88,17 @@
       }
       this._clearButtonListeners();
       var view = this.currentView = this.views[this.views.length-1];
+
+      // add title and bar buttons
+      this.$title.html(view.title || "");
+      this.$rightBarButtons.empty();
+      this.$leftBarButtons.empty();
+
+      this._addButtons((view.rightBarButtons || []), this.$rightBarButtons, view);
+      this._addButtons((view.leftBarButtons || []), this.$leftBarButtons, view);
+
+      view.navigation = this;
+      view.render();
       this.currentView.on('all', this._onViewEvent, this);
 
       // don't do animation if there was no previous view
@@ -117,18 +128,9 @@
       }
 
       // setup navigation property on view and call onVisible
-      view.navigation = this;
       if(_.isFunction(view.onVisible)) {
         view.onVisible();
       }
-
-      // add title and bar buttons
-      this.$title.html(view.title || "");
-      this.$rightBarButtons.empty();
-      this.$leftBarButtons.empty();
-
-      this._addButtons((view.rightBarButtons || []), this.$rightBarButtons, view);
-      this._addButtons((view.leftBarButtons || []), this.$leftBarButtons, view);
 
       if(doAnimation) {
         // perform the animation

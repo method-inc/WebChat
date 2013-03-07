@@ -21,6 +21,17 @@
       }
     },
 
+    getUsername: function() {
+      return this.username;
+    },
+    setUsername: function(name) {
+      this.username = name;
+      localStorage.setItem('chatUsername', this.username);
+    },
+    hasUsername: function() {
+      return this.getUsername() !== 'Anonymous';
+    },
+
     onMessage: function(message) {
       this.push(message);
       this.updateLocalStorage();
@@ -37,6 +48,7 @@
     fetchFromLocalStorage: function() {
       var messages = JSON.parse(window.localStorage.getItem('chatHistory'));
       if(messages && messages.length) this.reset(messages);
+      this.username = localStorage.getItem('chatUsername') || 'Anonymous';
     },
 
     send: function(message) {

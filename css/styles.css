@@ -1,5 +1,9 @@
 * { box-sizing: border-box; }
 
+.full {
+  width: 100%;
+}
+
 /* BUTTONS */
 .btn {
   border-radius: 5px;
@@ -28,9 +32,7 @@
   background: -webkit-linear-gradient(top, #6d7580 0%, #afb3b9 100%);
   background: linear-gradient(to bottom, #6d7580 0%, #afb3b9 100%);
 }
-.barButton,
-a.barButton,
-button.barButton {
+.barButton {
   display: inline-block;
   color: #fff;
   background: -webkit-linear-gradient(top, #9fa9c1 0%, #4d608d 100%);
@@ -50,20 +52,22 @@ button.barButton {
   margin: 0;
   -webkit-tap-highlight-color: transparent;
 }
-.barButton.saveBarButton,
-a.barButton.saveBarButton,
-button.barButton.saveBarButton {
+.barButton.saveBarButton {
   background: -webkit-linear-gradient(top, #6f96e8 0%, #376fe0 50%, #2463de 50%);
   background: linear-gradient(to bottom, #6f96e8 0%, #376fe0 50%, #2463de 50%);
 }
 .barButton.saveBarButton:active,
-a.barButton.saveBarButton:active,
-button.barButton.saveBarButton:active,
-.barButton.saveBarButton:hover,
-a.barButton.saveBarButton:hover,
-button.barButton.saveBarButton:hover {
+.barButton.saveBarButton:hover {
   background: -webkit-linear-gradient(top, #75809f 0%, #3e517a 50%, #29406d 50%, #223965 100%);
   background: linear-gradient(to bottom, #75809f 0%, #3e517a 50%, #29406d 50%, #223965 100%);
+}
+
+.barButton.saveBarButton[disabled],
+.barButton.saveBarButton[disabled]:active,
+.barButton.saveBarButton[disabled]:hover {
+  background: -webkit-linear-gradient(top, #6f96e8 0%, #376fe0 50%, #2463de 50%);
+  background: linear-gradient(to bottom, #6f96e8 0%, #376fe0 50%, #2463de 50%);
+  opacity: 0.5;
 }
 
 
@@ -76,11 +80,29 @@ textarea {
   border-radius: 5px;
   padding: 1em;
   font-size: 1em;
+  margin: 0;
+  box-shadow: 0 1px 0 #fff;
 }
 input[disabled],
 textarea[disabled] {
   color: #999 !important;
   background-color: #eee;
+}
+
+label {
+  font-size: 13px;
+  margin: 10px;
+  font-weight: bold;
+  display: block;
+  color: #50566b;
+  text-shadow: #fff 0 1px 1px;
+}
+p.note {
+  font-size: 11px;
+  text-align: center;
+  color: #50566b;
+  text-shadow: #fff 0 1px 1px;
+  margin: 10px;
 }
 
 
