@@ -48,7 +48,7 @@
 
     addMessage: function(message) {
       var $message = $(this.renderMessage(message)),
-          scrollParent = this.$el.parent(),
+          scrollParent = this.$('#chat-messages'),
           isAtBottom = (scrollParent.scrollTop() + scrollParent.height() >= scrollParent[0].scrollHeight - 10);
       this.$('#chat-messages').append($message);
       // scroll to message if they are already scrolled to the bottom
