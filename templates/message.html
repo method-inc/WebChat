@@ -1,5 +1,6 @@
 <p class="chat-message-date">Today, 10:30AM</p>
-<li class="chat-message <%= (data.mine ? 'chat-message-mine' : '') %>" >
+<li class="chat-message <%= (data.mine ? 'chat-message-mine' : '') %>"
+    data-message-id="<%= data.cid %>">
   <h3 class="chat-message-user" ><%= data.user %></h3>
   <p class="chat-message-text"><%= data.message %></p>
 </li>

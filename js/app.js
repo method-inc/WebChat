@@ -1,8 +1,7 @@
 ;(function(exports) {
 
-  var RootView = new (NavigationView.extend({}))({
-    el: $('#app')
-  });
+  var RootView = new (NavigationView.extend({}))();
+  $(document.body).append(RootView.el);
 
   var ChatList = BaseView.extend({
     collection: new MessageCollection(),
@@ -14,7 +13,8 @@
 
     events: {
       "keyup #new-message-text": 'toggleSendButton',
-      "submit #new-message-form": 'send'
+      "submit #new-message-form": 'send',
+      "click .chat-message": 'goToMessage'
     },
 
     initialize: function() {
@@ -43,7 +43,7 @@
       }
     },
     renderMessage: function(message) {
-      return Templates.message(message.toJSON());
+      return Templates.message(_.extend(message.toJSON(), {cid: message.cid }));
     },
 
     addMessage: function(message) {
@@ -78,10 +78,36 @@
       return false;
     },
 
+    goToMessage: function(e) {
+      var $e = $(e.currentTarget);
+      var model = this.collection.get($e.attr('data-message-id'));
+      if(!model) return false;
+      this.navigation.pushView( new MessageDetail({ model: model }) );
+      return false;
+    },
+
     cleanup: function() {
       delete this.$textField, this.$button;
       this._cleanup();
     }
+  });
+
+
+  var MessageDetail = BaseView.extend({
+
+    title: 'Message Detail',
+    leftBarButtons: [
+      { html: '<button class="barButton backBarButton">Chat</button>', click: 'done' }
+    ],
+
+    render: function() {
+      this.$el.html(Templates.message(this.model.toJSON()));
+    },
+
+    done: function() {
+      this.navigation.popView();
+    }
+
   });
 
 

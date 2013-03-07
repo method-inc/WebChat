@@ -5,7 +5,9 @@
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
 __p+='<p class="chat-message-date">Today, 10:30AM</p>\n<li class="chat-message '+
 ((__t=( (data.mine ? 'chat-message-mine' : '') ))==null?'':__t)+
-'" >\n  <h3 class="chat-message-user" >'+
+'"\n    data-message-id="'+
+((__t=( data.cid ))==null?'':__t)+
+'">\n  <h3 class="chat-message-user" >'+
 ((__t=( data.user ))==null?'':__t)+
 '</h3>\n  <p class="chat-message-text">'+
 ((__t=( data.message ))==null?'':__t)+
