@@ -4,7 +4,7 @@
 
   var ModalView = NavigationView.extend({
     attributes: {
-      class: 'navigation-view modal-view'
+      class: 'navigation-view modal-view animate'
     },
 
     /**

@@ -1,8 +1,16 @@
+/* size all elements using the border box instead of the padding box */
 * { box-sizing: border-box; }
+
+body {
+  -webkit-user-select: none;
+  font: 0.75em/1.2em "Helvetica Neue", "Roboto", "Droid Sans", Arial, sans-serif;
+  height 100%
+}
 
 .full {
   width: 100%;
 }
+
 
 /* BUTTONS */
 .btn {
@@ -19,7 +27,9 @@
   font-weight: bold;
   box-shadow: inset 0 1px 0 rgba(0,0,0,0.1);
   font-family: Helvetica, Arial, sans-serif;
+  -webkit-tap-highlight-color: transparent;
 }
+
 .btn[disabled],
 .btn[disabled]:active {
   background: -webkit-linear-gradient(top, #c9cbcd 0%, #afb2b7 100%);
@@ -28,10 +38,14 @@
   color: #e9e9e9;
   text-shadow: #aaabad 0 -1px 0;
 }
+
+/* :active pseudo-classes can be used for hover states on mobile */
 .btn:active {
   background: -webkit-linear-gradient(top, #6d7580 0%, #afb3b9 100%);
   background: linear-gradient(to bottom, #6d7580 0%, #afb3b9 100%);
 }
+
+/* Toolbar Buttons */
 .barButton {
   display: inline-block;
   color: #fff;
@@ -46,16 +60,18 @@
   font-size: 0.75rem;
   line-height: 1em;
   padding: 8px;
-  font-weight: normal;
+  font-weight: bold;
   vertical-align: middle;
   font-family: Helvetica, Arial, sans-serif;
   margin: 0;
   -webkit-tap-highlight-color: transparent;
 }
+
 .barButton.saveBarButton {
   background: -webkit-linear-gradient(top, #6f96e8 0%, #376fe0 50%, #2463de 50%);
   background: linear-gradient(to bottom, #6f96e8 0%, #376fe0 50%, #2463de 50%);
 }
+
 .barButton.saveBarButton:active,
 .barButton.saveBarButton:hover {
   background: -webkit-linear-gradient(top, #75809f 0%, #3e517a 50%, #29406d 50%, #223965 100%);
@@ -83,6 +99,7 @@ textarea {
   margin: 0;
   box-shadow: 0 1px 0 #fff;
 }
+
 input[disabled],
 textarea[disabled] {
   color: #999 !important;
@@ -97,6 +114,7 @@ label {
   color: #50566b;
   text-shadow: #fff 0 1px 1px;
 }
+
 p.note {
   font-size: 11px;
   text-align: center;
@@ -107,50 +125,12 @@ p.note {
 
 
 /* NAVIGATION VIEWS */
-/* Animations and transitions */
-.navigation-view .old-content {
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  -webkit-transform: translate3d(0, 0, 0);
-  -moz-transform: translate3d(0, 0, 0);
-  -ms-transform: translate3d(0, 0, 0);
-  transform: translate3d(0, 0, 0);
-}
-.navigation-view .old-content.animate {
-  -webkit-transition-property: -webkit-transform;
-  -moz-transition-property: -moz-transform;
-  -ms-transition-property: -ms-transform;
-  transition-property: transform;
-  -webkit-transition-duration: 0.4s;
-  -moz-transition-duration: 0.4s;
-  -ms-transition-duration: 0.4s;
-  transition-duration: 0.4s;
-  -webkit-transition-timing-function: ease-in-out;
-  -moz-transition-timing-function: ease-in-out;
-  -ms-transition-timing-function: ease-in-out;
-  transition-timing-function: ease-in-out;
-}
-.navigation-view .old-content.go {
-  -webkit-transform: translate3d(-100%, 0, 0);
-  -moz-transform: translate3d(-100%, 0, 0);
-  -ms-transform: translate3d(-100%, 0, 0);
-  transform: translate3d(-100%, 0, 0);
-}
-.navigation-view .old-content.back.go {
-  -webkit-transform: translate3d(100%, 0, 0);
-  -moz-transform: translate3d(100%, 0, 0);
-  -ms-transform: translate3d(100%, 0, 0);
-  transform: translate3d(100%, 0, 0);
-}
-.navigation-view .new-content {
-  -webkit-transform: translate3d(100%, 0, 0);
-  -moz-transform: translate3d(100%, 0, 0);
-  -o-transform: translate3d(100%, 0, 0);
-  -ms-transform: translate3d(100%, 0, 0);
-  transform: translate3d(100%, 0, 0);
-}
+
+/* Animations And Transitions:
+   Animated elements have 2 classes applied to them to trigger the animation:
+   .animate adds the transition properties (useful for disabling animations if
+   needed) and .go actually sets the new property values and triggers the animation */
+.navigation-view .old-content.animate,
 .navigation-view .new-content.animate {
   -webkit-transition-property: -webkit-transform;
   -moz-transition-property: -moz-transform;
@@ -165,18 +145,53 @@ p.note {
   -ms-transition-timing-function: ease-in-out;
   transition-timing-function: ease-in-out;
 }
+.navigation-view .old-content {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+/* Animate old content to the left if going forward in the stack */
+.navigation-view .old-content.go {
+  -webkit-transform: translate3d(-100%, 0, 0);
+  -moz-transform: translate3d(-100%, 0, 0);
+  -ms-transform: translate3d(-100%, 0, 0);
+  transform: translate3d(-100%, 0, 0);
+}
+/* Animate old content to the right if going back in the stack */
+.navigation-view .old-content.back.go {
+  -webkit-transform: translate3d(100%, 0, 0);
+  -moz-transform: translate3d(100%, 0, 0);
+  -ms-transform: translate3d(100%, 0, 0);
+  transform: translate3d(100%, 0, 0);
+}
+/* New content starts offscreen on the right */
+.navigation-view .new-content {
+  -webkit-transform: translate3d(100%, 0, 0);
+  -moz-transform: translate3d(100%, 0, 0);
+  -o-transform: translate3d(100%, 0, 0);
+  -ms-transform: translate3d(100%, 0, 0);
+  transform: translate3d(100%, 0, 0);
+}
+/* New content when going back starts offscreen on the left */
 .navigation-view .new-content.back {
   -webkit-transform: translate3d(-100%, 0, 0);
   -moz-transform: translate3d(-100%, 0, 0);
   -ms-transform: translate3d(-100%, 0, 0);
   transform: translate3d(-100%, 0, 0);
 }
+/* Translate new content to final position */
 .navigation-view .new-content.go {
   -webkit-transform: translate3d(0, 0, 0);
   -moz-transform: translate3d(0, 0, 0);
   -ms-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
 }
+/* position old header on top of new one */
 .navigation-view .old-header {
   position: absolute !important;
   left: 0;
@@ -192,7 +207,9 @@ p.note {
   transform: translate3d(0, 0, 0);
 }
 .navigation-view .old-header.animate h1,
-.navigation-view .old-header.animate .backBarButton {
+.navigation-view .old-header.animate .backBarButton,
+.navigation-view .new-header.animate h1,
+.navigation-view .new-header.animate .backBarButton {
   -webkit-transition-property: -webkit-transform, opacity;
   -moz-transition-property: -moz-transform, opacity;
   -ms-transition-property: -ms-transform, opacity;
@@ -206,64 +223,8 @@ p.note {
   -ms-transition-timing-function: ease-in-out;
   transition-timing-function: ease-in-out;
 }
-.navigation-view .old-header.animate .barButton:not(.backBarButton) {
-  -webkit-transition-property: opacity;
-  -moz-transition-property: opacity;
-  -ms-transition-property: opacity;
-  transition-property: opacity;
-  -webkit-transition-duration: 0.2s;
-  -moz-transition-duration: 0.2s;
-  -ms-transition-duration: 0.2s;
-  transition-duration: 0.2s;
-  -webkit-transition-timing-function: ease-in-out;
-  -moz-transition-timing-function: ease-in-out;
-  -ms-transition-timing-function: ease-in-out;
-  transition-timing-function: ease-in-out;
-}
-.navigation-view .old-header.go h1,
-.navigation-view .old-header.go .backBarButton {
-  -webkit-transform: translate3d(-100px, 0, 0);
-  -moz-transform: translate3d(-100px, 0, 0);
-  -ms-transform: translate3d(-100px, 0, 0);
-  transform: translate3d(-100px, 0, 0);
-  opacity: 0;
-}
-.navigation-view .old-header.go .barButton:not(.backBarButton) {
-  opacity: 0;
-}
-.navigation-view .old-header.go.back.go h1,
-.navigation-view .old-header.go.back.go .backBarButton {
-  -webkit-transform: translate3d(100px, 0, 0);
-  -moz-transform: translate3d(100px, 0, 0);
-  -ms-transform: translate3d(100px, 0, 0);
-  transform: translate3d(100px, 0, 0);
-}
-.navigation-view .new-header .barButton:not(.backBarButton) {
-  opacity: 0;
-}
-.navigation-view .new-header h1,
-.navigation-view .new-header .backBarButton {
-  -webkit-transform: translate3d(100px, 0, 0);
-  -moz-transform: translate3d(100px, 0, 0);
-  -ms-transform: translate3d(100px, 0, 0);
-  transform: translate3d(100px, 0, 0);
-  opacity: 0;
-}
-.navigation-view .new-header.animate h1,
-.navigation-view .new-header.animate .backBarButton {
-  -webkit-transition-property: -webkit-transform, opacity;
-  -moz-transition-property: -moz-transform, opacity;
-  -ms-transition-property: -webkit-transform, opacity;
-  transition-property: transform, opacity;
-  -webkit-transition-duration: 0.4s;
-  -moz-transition-duration: 0.4s;
-  -ms-transition-duration: 0.4s;
-  transition-duration: 0.4s;
-  -webkit-transition-timing-function: ease-in-out;
-  -moz-transition-timing-function: ease-in-out;
-  -ms-transition-timing-function: ease-in-out;
-  transition-timing-function: ease-in-out;
-}
+/* all buttons but the back button should just fade in/out */
+.navigation-view .old-header.animate .barButton:not(.backBarButton),
 .navigation-view .new-header.animate .barButton:not(.backBarButton) {
   -webkit-transition-property: opacity;
   -moz-transition-property: opacity;
@@ -273,15 +234,46 @@ p.note {
   -moz-transition-duration: 0.2s;
   -ms-transition-duration: 0.2s;
   transition-duration: 0.2s;
-  -webkit-transition-delay: 0.2s;
-  -moz-transition-delay: 0.2s;
-  -ms-transition-delay: 0.2s;
-  transition-delay: 0.2s;
   -webkit-transition-timing-function: ease-in-out;
   -moz-transition-timing-function: ease-in-out;
   -ms-transition-timing-function: ease-in-out;
   transition-timing-function: ease-in-out;
 }
+/* Animate the old view header and back button off to the left and fade out */
+.navigation-view .old-header.go h1,
+.navigation-view .old-header.go .backBarButton {
+  -webkit-transform: translate3d(-100px, 0, 0);
+  -moz-transform: translate3d(-100px, 0, 0);
+  -ms-transform: translate3d(-100px, 0, 0);
+  transform: translate3d(-100px, 0, 0);
+  opacity: 0;
+}
+/* fade out all other buttons */
+.navigation-view .old-header.go .barButton:not(.backBarButton) {
+  opacity: 0;
+}
+/* when going back in the stack, move header and back button in the other direction */
+.navigation-view .old-header.back.go h1,
+.navigation-view .old-header.back.go .backBarButton {
+  -webkit-transform: translate3d(100px, 0, 0);
+  -moz-transform: translate3d(100px, 0, 0);
+  -ms-transform: translate3d(100px, 0, 0);
+  transform: translate3d(100px, 0, 0);
+}
+/* new header buttons should start at 0 opacity */
+.navigation-view .new-header .barButton:not(.backBarButton) {
+  opacity: 0;
+}
+/* new title and back button should move in from the right */
+.navigation-view .new-header h1,
+.navigation-view .new-header .backBarButton {
+  -webkit-transform: translate3d(100px, 0, 0);
+  -moz-transform: translate3d(100px, 0, 0);
+  -ms-transform: translate3d(100px, 0, 0);
+  transform: translate3d(100px, 0, 0);
+  opacity: 0;
+}
+/* when going back in the stack new header should come in from the left */
 .navigation-view .new-header.back h1,
 .navigation-view .new-header.back .backBarButton {
   -webkit-transform: translate3d(-100px, 0, 0);
@@ -289,9 +281,11 @@ p.note {
   -ms-transform: translate3d(-100px, 0, 0);
   transform: translate3d(-100px, 0, 0);
 }
+/* new buttons should fade in */
 .navigation-view .new-header.go .barButton:not(.backBarButton) {
   opacity: 1;
 }
+/* new headers should move to the center */
 .navigation-view .new-header.go h1,
 .navigation-view .new-header.go .backBarButton {
   -webkit-transform: translate3d(0, 0, 0);
@@ -300,6 +294,8 @@ p.note {
   transform: translate3d(0, 0, 0);
   opacity: 1;
 }
+
+/* position modal view fixed over the whole page */
 .modal-view {
   position: fixed;
   top: 0;
@@ -307,6 +303,9 @@ p.note {
   right: 0;
   bottom: 0;
   z-index: 6;
+}
+/* if animating, set transitions and transform off screen */
+.modal-view.animate {
   -webkit-transform: translate3d(0, 120%, 0);
   -moz-transform: translate3d(0, 120%, 0);
   -ms-transform: translate3d(0, 120%, 0);
@@ -316,14 +315,16 @@ p.note {
   -ms-transition: 0.4s ease-in-out -ms-transform;
   transition: 0.4s ease-in-out transform;
 }
-.modal-view-show {
+/* when the modal-view-show class is applied, move modal up */
+.modal-view.animate.modal-view-show {
   -webkit-transform: translate3d(0, 0%, 0);
   -moz-transform: translate3d(0, 0%, 0);
   -ms-transform: translate3d(0, 0%, 0);
   transform: translate3d(0, 0%, 0);
 }
 
-/* Visual Styles */
+
+/* Visual Styles for navigation views */
 .navigation-title {
   background: -webkit-linear-gradient(top, #c3cbdc 0%, #627296 100%);
   background: linear-gradient(top, #c3cbdc 0%, #627296 100%);
@@ -339,6 +340,7 @@ p.note {
   -ms-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
 }
+
 .navigation-title-text {
   font-size: 1.429em;
   line-height: 40px;
@@ -351,6 +353,7 @@ p.note {
   text-align: center;
   font-weight: bold;
 }
+
 .navigation-title .barButtons {
   position: absolute;
   top: 5px;
@@ -361,9 +364,10 @@ p.note {
 .navigation-title .barButtons.right {
   right: 11px;
 }
+
 .navigation-content {
-  -webkit-overflow-scrolling: touch;
-  overflow-scrolling: touch;
+  -webkit-overflow-scrolling: touch; /* overflow-scrolling: touch enables smooth */
+  overflow-scrolling: touch;         /* native-like scrolling on iOS 5+ */
   position: absolute;
   overflow: auto;
   left: 0;
@@ -377,6 +381,8 @@ p.note {
 
 
 /* CHAT MESSAGE STYLES */
+/* chat messages should scroll and be positioned with space at the bottom for the
+   new message form */
 #chat-messages {
   list-style-type: none;
   padding: 8px 8px 0;
@@ -385,7 +391,7 @@ p.note {
   top: 0;
   left: 0;
   right: 0;
-  bottom: 40px;
+  bottom: 35px;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
   overflow-scrolling: touch;
@@ -402,6 +408,7 @@ p.note {
   box-shadow: 0 0 2px 0 rgba(0,0,0,0.2);
   position: relative;
 }
+/* use pseudo :after element as the rounded "shine" element on top of the chat bubble */
 .chat-message:after {
   content: '';
   display: block;
@@ -413,6 +420,7 @@ p.note {
   border-radius: 6px;
   background: rgba(255, 255, 255, 0.4);
 }
+/* messages from the current user are blue and to the right */
 .chat-message-mine {
   background: -webkit-linear-gradient(top, #a5c0fc 0%, #a8c4fc 10%, #abc8fc 90%, #e8feff 100%);
   background: linear-gradient(to bottom, #a5c0fc 0%, #a8c4fc 10%, #abc8fc 90%, #e8feff 100%);
@@ -421,6 +429,14 @@ p.note {
   margin-left: 40%;
 }
 
+/* formatting of chat text */
+.chat-message-date {
+  font-size: 10px;
+  font-weight: bold;
+  color: #8892a5;
+  text-shadow: #fff 0 1px 0;
+  text-align: center;
+}
 .chat-message-user {
   margin: 0 0 0.5em;
   font-size: 12px;
@@ -432,6 +448,7 @@ p.note {
   margin: 0;
 }
 
+/* new message form is positioned absolutely at the bottom */
 #new-message {
   position: absolute;
   left: 0;
@@ -443,6 +460,7 @@ p.note {
   box-shadow: inset 0 2px 0 #fff,
               0 0 0 rgba(0,0,0,0.5);
 }
+
 #new-message-text {
   padding: 4px 15px;
   line-height: 1em;
@@ -451,10 +469,12 @@ p.note {
   box-shadow: inset 0 1px 4px rgba(0,0,0,0.5);
   width: 80%;
 }
+
 #new-message-button {
   width: 18%;
   margin-left: 2%;
 }
+
 .btn-send-message {
   background: linear-gradient(to bottom, #a3bafc 0%, #354adb 90%, #3f60e1 100%);
   background: -webkit-linear-gradient(top, #a3bafc 0%, #354adb 90%, #3f60e1 100%);
@@ -465,6 +485,7 @@ p.note {
   border: 1px solid #384993;
   font-weight: normal;
 }
+
 .btn-send-message[disabled] {
   background: linear-gradient(to bottom, #a3bafc 0%, #354adb 90%, #3f60e1 100%);
   background: -webkit-linear-gradient(top, #a3bafc 0%, #354adb 90%, #3f60e1 100%);
