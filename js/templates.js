@@ -32,7 +32,7 @@ return __p;
 }
 Templates["settings"] = function(data){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
-__p+='<form>\n  <label for="settings-username">Username</label>\n  <input type="text" id="settings-username" class="full" placeholder="Required" required />\n  <p class="note">This will be used to identify you in chat messages</p>\n</form>';
+__p+='<form id="settings-form">\n  <label for="settings-username">Username</label>\n  <input type="text" id="settings-username" class="full" placeholder="Required" required />\n  <p class="note">This will be used to identify you in chat messages</p>\n</form>';
 return __p;
 }
 

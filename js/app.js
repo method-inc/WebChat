@@ -92,7 +92,8 @@
     ],
 
     events: {
-      "keyup #settings-username": 'updateSaveButton'
+      "keyup #settings-username": 'updateSaveButton',
+      "submit #settings-form": 'done'
     },
 
     initialize: function() {},
@@ -115,6 +116,7 @@
       this.navigation.hide(function() {
         this.cleanup();
       });
+      return false;
     },
 
     cleanup: function() {
