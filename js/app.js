@@ -6,7 +6,7 @@
   var ChatList = BaseView.extend({
     collection: new MessageCollection(),
 
-    title: 'Chat',
+    title: 'Chatter',
     rightBarButtons: [
       { html: '<button class="barButton">Settings</button>', click: 'settings' }
     ],
@@ -112,7 +112,10 @@
     ],
 
     render: function() {
-      this.$el.html(Templates.message(this.model.toJSON()));
+      this.$el.html(Templates.message(_.extend(this.model.toJSON(), {
+        cid: this.model.cid,
+        date: new Date(this.model.get('timestamp'))
+      })));
     },
 
     done: function() {

@@ -23,6 +23,8 @@ __p+='\n  '+
 ((__t=( data.date.getMinutes() ))==null?'':__t)+
 '\n</p>\n<li class="chat-message '+
 ((__t=( (data.mine ? 'chat-message-mine' : '') ))==null?'':__t)+
+'" data-message-id="'+
+((__t=( data.cid ))==null?'':__t)+
 '" >\n  <h3 class="chat-message-user" >'+
 ((__t=( data.user ))==null?'':__t)+
 '</h3>\n  <p class="chat-message-text">'+
