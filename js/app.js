@@ -14,7 +14,8 @@
     events: {
       "keyup #new-message-text": 'toggleSendButton',
       "submit #new-message-form": 'send',
-      "click .chat-message": 'goToMessage'
+      "click .chat-message": 'goToMessage',
+      "scroll #chat-messages": 'hideKeyboard'
     },
 
     initialize: function() {
@@ -95,6 +96,10 @@
       if(!model) return false;
       this.navigation.pushView( new MessageDetail({ model: model }) );
       return false;
+    },
+
+    hideKeyboard: function() {
+      if(document.activeElement) document.activeElement.blur();
     },
 
     cleanup: function() {
