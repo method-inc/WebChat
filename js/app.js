@@ -41,16 +41,27 @@
       if(last_message && last_message.length > 0) {
         _.defer(function() { last_message[0].scrollIntoView(); });
       }
+
+      if(this.collection.length === 0) {
+        this.$noMessages = this.$('#chat-messages-empty');
+      }
     },
     renderMessage: function(message) {
-      return Templates.message(_.extend(message.toJSON(), {cid: message.cid }));
+      return Templates.message(_.extend(message.toJSON(), {
+        cid: message.cid,
+        date: new Date(message.get('timestamp'))
+      }));
     },
 
     addMessage: function(message) {
       var $message = $(this.renderMessage(message)),
           scrollParent = this.$('#chat-messages'),
-          isAtBottom = (scrollParent.scrollTop() + scrollParent.height() >= scrollParent[0].scrollHeight - 10);
+          isAtBottom = scrollParent.length && (scrollParent.scrollTop() + scrollParent.height() >= scrollParent[0].scrollHeight - 10);
       this.$('#chat-messages').append($message);
+      if(this.$noMessages) {
+        this.$noMessages.remove();
+        delete this.$noMessages;
+      }
       // scroll to message if they are already scrolled to the bottom
       if(isAtBottom) {
         $message[0].scrollIntoView();

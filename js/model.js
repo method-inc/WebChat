@@ -9,16 +9,11 @@
     initialize: function() {
       // initialize chat streaming here
       var self = this;
-      window.setInterval(function() {
-        //self.onMessage({ user: 'David', message: 'Another One!' });
-      }, 5000);
+      chatter.connect('http://chatterjs.herokuapp.com', function(data) {
+        self.onMessage(data);
+      }, 1000);
       this.fetchFromLocalStorage();
-      if(this.length == 0) {
-        _.each([
-          { user: 'David', message: 'Hello' },
-          { user: 'Jim', message: 'Hi there' }
-        ], this.onMessage, this);
-      }
+      chatter.getRecentHistory();
     },
 
     getUsername: function() {
@@ -33,6 +28,13 @@
     },
 
     onMessage: function(message) {
+      // filter out duplicates (i.e. if getRecentHistory gives us some we already
+      // had in localStorage)
+      if(this.any(function(old_message) {
+        return old_message.get('timestamp') === message.timestamp
+            && old_message.get('user') === message.user
+            && old_message.get('body') === message.body;
+      })) return;
       this.push(message);
       this.updateLocalStorage();
     },
@@ -52,10 +54,9 @@
     },
 
     send: function(message) {
-      this.onMessage({
-        user: this.username,
-        message: message,
-        mine: true
+      var self = this;
+      chatter.send(message, this.username, function(message) {
+        self.onMessage( _.extend(JSON.parse(message), { mine: true }) );
       });
     }
 

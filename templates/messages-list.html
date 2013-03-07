@@ -1,8 +1,7 @@
 <% if(!data.has_messages) { %>
-  <h2 class="chat-messages-empty">No Messages</h2>
-<% } else { %>
-  <ul id="chat-messages"><%= data.messages %></ul>
+  <h2 id="chat-messages-empty" class="note">No Messages</h2>
 <% } %>
+<ul id="chat-messages"><%= data.messages %></ul>
 <div id="new-message">
   <form id="new-message-form">
   	<input type="text" id="new-message-text" placeholder="Message" /><!--
