@@ -182,10 +182,6 @@ p.note {
   transition-timing-function: ease-in-out;
 }
 .navigation-view .old-content {
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
   -webkit-transform: translate3d(0, 0, 0);
   -moz-transform: translate3d(0, 0, 0);
   -ms-transform: translate3d(0, 0, 0);
@@ -234,6 +230,9 @@ p.note {
   top: 0;
   right: 0;
   overflow: hidden;
+}
+.navigation-view .old-header {
+  background: none;
 }
 .navigation-view .old-header h1,
 .navigation-view .old-header .backBarButton {

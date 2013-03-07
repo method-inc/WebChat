@@ -89,6 +89,8 @@
       this._clearButtonListeners();
       var view = this.currentView = this.views[this.views.length-1];
 
+      var oldTitle = this.$header.clone().addClass('old-header').appendTo(this.el);
+
       // add title and bar buttons
       this.$title.html(view.title || "");
       this.$rightBarButtons.empty();
@@ -103,28 +105,29 @@
 
       // don't do animation if there was no previous view
       var doAnimation = (this.$content.html() !== '') ? true : false;
-      var oldView, oldTitle;
+      var oldView = this.$content;
 
       if(doAnimation) {
-        // put the old content in temp container
-        oldView = $('<div class="old-content"></div>').html(this.$content.html());
-        oldView.addClass(this.$content.attr('class') || '');
+        this.$content.addClass('old-content');
       }
       // put the new view.$el into this.$content
-      this.$content.html(view.$el);
+      this.$content = this.$content.clone().html(view.el).removeClass('old-content');
+      this.$el.append(this.$content);
 
       if(doAnimation) {
         this.$content.addClass('new-content');
-        this.$content.parent().append(oldView);
         $animatable.push(oldView[0], this.$content[0]);
+      }
+      else {
+        oldView.remove();
       }
 
       if(doAnimation) {
-        // put the old title/header into a temporary container
-        var oldTitle = $('<div class="old-header"></div>').html(this.$header.html());
-        oldTitle.addClass(this.$header.attr('class') || '');
-        this.$header.addClass('new-header').parent().prepend(oldTitle);
+        this.$header.addClass('new-header');
         $animatable.push(oldTitle[0], this.$header[0]);
+      }
+      else {
+        oldTitle.remove();
       }
 
       // setup navigation property on view and call onVisible
@@ -140,6 +143,7 @@
           oldTitle.remove();
           this.$header.removeClass('new-header animate go back');
           if(_.isFunction(cb)) cb();
+          delete oldTitle, oldView;
         }, this), 500);
 
         if(back) {
