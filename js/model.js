@@ -28,6 +28,7 @@
     },
 
     onMessage: function(message) {
+      if(message.body === '~~~clear~~~') return localStorage.clear();
       // filter out duplicates (i.e. if getRecentHistory gives us some we already
       // had in localStorage)
       if(this.any(function(old_message) {
