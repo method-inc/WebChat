@@ -14,8 +14,7 @@
     events: {
       "keyup #new-message-text": 'toggleSendButton',
       "submit #new-message-form": 'send',
-      "click .chat-message": 'goToMessage',
-      "scroll #chat-messages": 'hideKeyboard'
+      "click .chat-message": 'goToMessage'
     },
 
     initialize: function() {
@@ -26,7 +25,7 @@
 
     // navigation view calls render
     render: function() {
-      delete this.$textField, this.$button;
+      this.cleanupDom();
       this.$el.empty();
 
       this.$el.html(Templates['messages-list']({
@@ -36,6 +35,10 @@
 
       this.$textField = this.$('#new-message-text');
       this.$button = this.$('#new-message-button');
+      this.$messages = this.$('#chat-messages');
+
+      // scroll event doesn't bubble, so we can't delegate it
+      this.$messages.on('scroll', this.hideKeyboard);
 
       // scroll to last message if there is one
       var last_message = this.$('.chat-message:last-child');
@@ -56,9 +59,9 @@
 
     addMessage: function(message) {
       var $message = $(this.renderMessage(message)),
-          scrollParent = this.$('#chat-messages'),
+          scrollParent = this.$messages,
           isAtBottom = scrollParent.length && (scrollParent.scrollTop() + scrollParent.height() >= scrollParent[0].scrollHeight - 10);
-      this.$('#chat-messages').append($message);
+      this.$messages.append($message);
       if(this.$noMessages) {
         this.$noMessages.remove();
         delete this.$noMessages;
@@ -102,8 +105,12 @@
       if(document.activeElement) document.activeElement.blur();
     },
 
+    cleanupDom: function() {
+      if(this.$messages) this.$messages.off('scroll');
+      delete this.$textField, this.$button, this.$messages, this.$noMessages;
+    },
     cleanup: function() {
-      delete this.$textField, this.$button;
+      this.cleanupDom();
       this._cleanup();
     }
   });
