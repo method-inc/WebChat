@@ -431,7 +431,8 @@ label {
   left: 0;
   right: 0;
   bottom: 38px;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
   overflow-scrolling: touch;
 }
