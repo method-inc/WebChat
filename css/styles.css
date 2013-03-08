@@ -134,6 +134,7 @@ textarea {
   font-size: 1em;
   margin: 0;
   box-shadow: 0 1px 0 #fff;
+  font-size: 1.166667em;
 }
 
 input[disabled],
@@ -429,7 +430,7 @@ label {
   top: 0;
   left: 0;
   right: 0;
-  bottom: 35px;
+  bottom: 38px;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
   overflow-scrolling: touch;
@@ -445,6 +446,8 @@ label {
   border: 1px solid #95979d;
   box-shadow: 0 0 2px 0 rgba(0,0,0,0.2);
   position: relative;
+  overflow-x: hidden;
+  -webkit-user-select: auto; /* let users copy messages */
 }
 /* use pseudo :after element as the rounded "shine" element on top of the chat bubble */
 .chat-message:after {
@@ -476,12 +479,14 @@ label {
   text-align: center;
 }
 .chat-message-user {
-  margin: 0 0 0.5em;
-  font-size: 12px;
+  margin: 0 -9px 0.5em;
+  padding: 0 9px 0.5em;
+  border-bottom: 1px dashed rgba(0,0,0,0.2);
+  font-size: 1.166667em;
   font-weight: bold;
 }
 .chat-message-text {
-  font-size: 12px;
+  font-size: 1.166667em;
   line-height: 1.25em;
   margin: 0;
 }
@@ -506,11 +511,13 @@ label {
   border: 1px solid #737373;
   box-shadow: inset 0 1px 4px rgba(0,0,0,0.5);
   width: 80%;
+  font-size: 1.166667em;
 }
 
 #new-message-button {
   width: 18%;
   margin-left: 2%;
+  font-size: 1.166667em;
 }
 
 .btn-send-message {
