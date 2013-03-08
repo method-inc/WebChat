@@ -442,11 +442,13 @@ label {
   background: -webkit-linear-gradient(top, #eaeaea 0%, #ddd 10%, #ddd 90%, #f4f4f4 100%);
   background: linear-gradient(to bottom, #eaeaea 0%, #ddd 10%, #ddd 90%, #f4f4f4 100%);
   border-radius: 8px;
-  width: 60%;
+  width: intrinsic;
+  min-width: 10%;
+  max-width: 75%;
   border: 1px solid #95979d;
   box-shadow: 0 0 2px 0 rgba(0,0,0,0.2);
   position: relative;
-  overflow-x: hidden;
+  clear: right;
   -webkit-user-select: auto; /* let users copy messages */
 }
 /* use pseudo :after element as the rounded "shine" element on top of the chat bubble */
@@ -461,13 +463,42 @@ label {
   border-radius: 6px;
   background: rgba(255, 255, 255, 0.4);
 }
+.chat-message:before {
+  background-color: #ddd;
+  content: "";
+  display: block;
+  height: 12px;
+  width:  12px;
+  position: absolute;
+  left: -7px;
+  bottom: 10px;
+  -webkit-transform: rotate( 45deg );
+  -moz-transform: rotate( 45deg );
+  -ie-transform: rotate( 45deg );
+  transform: rotate( 45deg );
+  -webkit-mask-image: -webkit-linear-gradient(left bottom, #000 0%, #000 50%, transparent 50%, transparent 100%);
+  -moz-mask-image: -moz-linear-gradient(left bottom, #000 0%, #000 50%, transparent 50%, transparent 100%);
+  mask-image: linear-gradient(left bottom, #000 0%, #000 50%, transparent 50%, transparent 100%);
+  border: 1px solid #95979d;
+}
 /* messages from the current user are blue and to the right */
 .chat-message-mine {
   background: -webkit-linear-gradient(top, #a5c0fc 0%, #a8c4fc 10%, #abc8fc 90%, #e8feff 100%);
   background: linear-gradient(to bottom, #a5c0fc 0%, #a8c4fc 10%, #abc8fc 90%, #e8feff 100%);
   box-shadow: 0 0 2px 1px rgba(0,0,0,0.3);
   border-color: #293571;
-  margin-left: 40%;
+  float: right;
+  text-align: right;
+}
+.chat-message-mine:before {
+  background-color: #a8c8f8;
+  left: auto;
+  right: -7px;
+  -webkit-transform: rotate( 225deg );
+  -moz-transform: rotate( 225deg );
+  -ie-transform: rotate( 225deg );
+  transform: rotate( 225deg );
+  border-color: #293571;
 }
 
 /* formatting of chat text */
@@ -477,6 +508,7 @@ label {
   color: #8892a5;
   text-shadow: #fff 0 1px 0;
   text-align: center;
+  clear: right;
 }
 .chat-message-user {
   margin: 0 -9px 0.5em;
