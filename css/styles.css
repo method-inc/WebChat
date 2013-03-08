@@ -424,7 +424,7 @@ label {
    new message form */
 #chat-messages {
   list-style-type: none;
-  padding: 8px 8px 0;
+  padding: 8px 10px 0;
   margin: 0;
   position: absolute;
   top: 0;
