@@ -1,7 +1,18 @@
 ;(function(exports) { 
    exports.Templates = exports.Templates || {}; 
    var Templates = exports.Templates; 
-   Templates["message"] = function(data){
+   Templates["message-detail"] = function(data){
+var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
+__p+='<dl class="message-details">\n  <dt>Date</dt>\n  <dd>'+
+((__t=( data.date ))==null?'':__t)+
+'</dd>\n  <dt>From</dt>\n  <dd>'+
+((__t=( data.user ))==null?'':__t)+
+'</dd>\n  <dt>Message</dt>\n  <dd>'+
+((__t=( data.body ))==null?'':__t)+
+'</dd>\n</dl>';
+return __p;
+}
+Templates["message"] = function(data){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
 __p+='';
  if(data.date) { 

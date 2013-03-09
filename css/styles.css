@@ -569,3 +569,21 @@ label {
   background: -webkit-linear-gradient(top, #a3bafc 0%, #354adb 90%, #3f60e1 100%);
   color: rgba(255, 255, 255, 0.3);
 }
+
+.message-details {
+  -webkit-user-select: auto;
+}
+
+.message-details > dt {
+  font-size: 10px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #8892a5;
+  text-shadow: #fff 0 1px 0;
+  margin: 0.5em 0;
+}
+
+.message-details > dd {
+  font-size: 1.166667em;
+  margin: 0 0 1em;
+}

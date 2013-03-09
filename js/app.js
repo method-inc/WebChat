@@ -55,19 +55,8 @@
     renderMessage: function(message) {
       var dateString;
       if(!this.lastDate || message.get('timestamp') - this.lastDate > 300000) {
-      console.log('ts');
         this.lastDate = message.get('timestamp');
-        dateString = '';
-        var date = new Date(message.get('timestamp'));
-        var now = new Date();
-        if(date.getDate() === now.getDate() && date.getMonth() === now.getMonth() && date.getFullYear() === now.getFullYear()) {
-          dateString = 'Today';
-        } else {
-          dateString = (date.getMonth()+1) + '/' + date.getDate() + '/' + date.getFullYear();
-        }
-        dateString += ' ' + (date.getHours() > 12 ? (date.getHours()-12) : date.getHours());
-        dateString += ':' + (date.getMinutes() < 10 ? ('0'+date.getMinutes()) : date.getMinutes());
-        dateString += date.getHours() > 12 ? ' PM' : ' AM';
+        dateString = formatDate(message.get('timestamp'));
       }
       return Templates.message(_.extend(message.toJSON(), {
         cid: message.cid,
@@ -142,9 +131,9 @@
     ],
 
     render: function() {
-      this.$el.html(Templates.message(_.extend(this.model.toJSON(), {
+      this.$el.html(Templates['message-detail'](_.extend(this.model.toJSON(), {
         cid: this.model.cid,
-        date: new Date(this.model.get('timestamp'))
+        date: formatDate(this.model.get('timestamp'))
       })));
     },
 
@@ -201,5 +190,21 @@
   window.addEventListener('load', function() {
     new FastClick(document.body);
   }, false);
+
+
+  function formatDate(ts) {
+    dateString = '';
+    var date = new Date(ts);
+    var now = new Date();
+    if(date.getDate() === now.getDate() && date.getMonth() === now.getMonth() && date.getFullYear() === now.getFullYear()) {
+      dateString = 'Today';
+    } else {
+      dateString = (date.getMonth()+1) + '/' + date.getDate() + '/' + date.getFullYear();
+    }
+    dateString += ' ' + (date.getHours() > 12 ? (date.getHours()-12) : date.getHours());
+    dateString += ':' + (date.getMinutes() < 10 ? ('0'+date.getMinutes()) : date.getMinutes());
+    dateString += date.getHours() > 12 ? ' PM' : ' AM';
+    return dateString;
+  }
 
 })(this);
