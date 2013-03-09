@@ -478,11 +478,13 @@ label {
   -webkit-mask-image: linear-gradient(to right top, #000 0%, #000 50%, transparent 50%, transparent 100%);
   -moz-mask-image: linear-gradient(to top right, #000 0%, #000 50%, transparent 50%, transparent 100%);
   mask-image: linear-gradient(to right top, #000 0%, #000 50%, transparent 50%, transparent 100%);
- */
+ *//*
+
   -webkit-transform: rotate( 45deg );
   -moz-transform: rotate( 45deg );
   -ie-transform: rotate( 45deg );
   transform: rotate( 45deg );
+ */
   border: 1px solid #95979d;
 }
 /* messages from the current user are blue and to the right */
