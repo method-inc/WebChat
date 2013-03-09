@@ -40,7 +40,7 @@
       this.$messages = this.$('#chat-messages');
 
       // scroll event doesn't bubble, so we can't delegate it
-      this.$messages.on('scroll', this.hideKeyboard);
+      //this.$messages.on('scroll', this.hideKeyboard);
 
       // scroll to last message if there is one
       var last_message = this.$('.chat-message:last-child');
@@ -113,7 +113,7 @@
     },
 
     cleanupDom: function() {
-      if(this.$messages) this.$messages.off('scroll');
+      //if(this.$messages) this.$messages.off('scroll');
       delete this.$textField, this.$button, this.$messages, this.$noMessages;
     },
     cleanup: function() {
