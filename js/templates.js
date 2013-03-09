@@ -3,25 +3,13 @@
    var Templates = exports.Templates; 
    Templates["message"] = function(data){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
-__p+='<p class="chat-message-date">\n  ';
- var now = new Date(); 
-__p+='\n  ';
- if(data.date.getDate() === now.getDate() && data.date.getMonth() === now.getMonth() && data.date.getFullYear() === now.getFullYear()) { 
-__p+='\n    Today\n  ';
- } else { 
-__p+='\n    '+
-((__t=( data.date.getMonth()+1 ))==null?'':__t)+
-'/'+
-((__t=( data.date.getDate() ))==null?'':__t)+
-'/'+
-((__t=( data.date.getFullYear() ))==null?'':__t)+
-'\n  ';
+__p+='';
+ if(data.date) { 
+__p+='\n  <p class="chat-message-date">'+
+((__t=( data.date ))==null?'':__t)+
+'</p>\n';
  } 
-__p+='\n  '+
-((__t=( data.date.getHours() ))==null?'':__t)+
-':'+
-((__t=( data.date.getMinutes() ))==null?'':__t)+
-'\n</p>\n<li class="chat-message '+
+__p+='\n<li class="chat-message '+
 ((__t=( (data.mine ? 'chat-message-mine' : '') ))==null?'':__t)+
 '" data-message-id="'+
 ((__t=( data.cid ))==null?'':__t)+

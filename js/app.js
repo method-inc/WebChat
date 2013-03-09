@@ -18,6 +18,8 @@
     },
 
     initialize: function() {
+      // store the last date header we rendered so we know when to show another one
+      this.lastDate = null;
     	this.listenTo(this.collection, 'reset', this.render);
     	this.listenTo(this.collection, 'add', this.addMessage);
     	if(!this.collection.hasUsername()) this.settings();
@@ -51,9 +53,25 @@
       }
     },
     renderMessage: function(message) {
+      var dateString;
+      if(!this.lastDate || message.get('timestamp') - this.lastDate > 300000) {
+      console.log('ts');
+        this.lastDate = message.get('timestamp');
+        dateString = '';
+        var date = new Date(message.get('timestamp'));
+        var now = new Date();
+        if(date.getDate() === now.getDate() && date.getMonth() === now.getMonth() && date.getFullYear() === now.getFullYear()) {
+          dateString = 'Today';
+        } else {
+          dateString = (date.getMonth()+1) + '/' + date.getDate() + '/' + date.getFullYear();
+        }
+        dateString += ' ' + (date.getHours() > 12 ? (date.getHours()-12) : date.getHours());
+        dateString += ':' + (date.getMinutes() < 10 ? ('0'+date.getMinutes()) : date.getMinutes());
+        dateString += date.getHours() > 12 ? ' PM' : ' AM';
+      }
       return Templates.message(_.extend(message.toJSON(), {
         cid: message.cid,
-        date: new Date(message.get('timestamp'))
+        date: dateString
       }));
     },
 

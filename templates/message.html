@@ -1,12 +1,6 @@
-<p class="chat-message-date">
-  <% var now = new Date(); %>
-  <% if(data.date.getDate() === now.getDate() && data.date.getMonth() === now.getMonth() && data.date.getFullYear() === now.getFullYear()) { %>
-    Today
-  <% } else { %>
-    <%= data.date.getMonth()+1 %>/<%= data.date.getDate() %>/<%= data.date.getFullYear() %>
-  <% } %>
-  <%= data.date.getHours() %>:<%= data.date.getMinutes() %>
-</p>
+<% if(data.date) { %>
+  <p class="chat-message-date"><%= data.date %></p>
+<% } %>
 <li class="chat-message <%= (data.mine ? 'chat-message-mine' : '') %>" data-message-id="<%= data.cid %>" >
   <h3 class="chat-message-user" ><%= data.user %></h3>
   <p class="chat-message-text"><%= data.body %></p>
