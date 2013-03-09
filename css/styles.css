@@ -464,7 +464,7 @@ label {
   border-radius: 6px;
   background: rgba(255, 255, 255, 0.4);
 }
-.chat-message:before {
+body.css-maskimages .chat-message:before {
   background-color: #ddd;
   content: "";
   display: block;
@@ -473,18 +473,13 @@ label {
   position: absolute;
   left: -7px;
   bottom: 10px;
-  -webkit-mask: -webkit-linear-gradient(left bottom, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 50%, transparent 50%, transparent 100%);
-/*
-  -webkit-mask-image: linear-gradient(to right top, #000 0%, #000 50%, transparent 50%, transparent 100%);
-  -moz-mask-image: linear-gradient(to top right, #000 0%, #000 50%, transparent 50%, transparent 100%);
-  mask-image: linear-gradient(to right top, #000 0%, #000 50%, transparent 50%, transparent 100%);
- *//*
-
   -webkit-transform: rotate( 45deg );
   -moz-transform: rotate( 45deg );
   -ie-transform: rotate( 45deg );
   transform: rotate( 45deg );
- */
+  -webkit-mask-image: -webkit-linear-gradient(left bottom, #000 0%, #000 50%, transparent 50%, transparent 100%);
+  -moz-mask-image: linear-gradient(to top right, #000 0%, #000 50%, transparent 50%, transparent 100%);
+  mask-image: linear-gradient(to top right, #000 0%, #000 50%, transparent 50%, transparent 100%);
   border: 1px solid #95979d;
 }
 /* messages from the current user are blue and to the right */
@@ -496,7 +491,7 @@ label {
   float: right;
   text-align: right;
 }
-.chat-message-mine:before {
+body.css-maskimages .chat-message-mine:before {
   background-color: #a8c8f8;
   left: auto;
   right: -7px;
