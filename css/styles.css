@@ -85,22 +85,22 @@ body {
   background: linear-gradient(to bottom, #6f96e8 0%, #376fe0 50%, #2463de 50%);
   opacity: 0.5;
 }
-
 .barButton.backBarButton {
-  border-left: none;
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-  position: relative;
   -webkit-transform: translate3d(0, 0, 0);
   -moz-transform: translate3d(0, 0, 0);
   -ms-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
-  margin-left: 15px;
-  padding-left: 2px;
   border-bottom-color: #404040;
 }
-
-.barButton.backBarButton:after {
+body.css-maskimages .barButton.backBarButton {
+  border-left: none;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  position: relative;
+  margin-left: 15px;
+  padding-left: 2px;
+}
+body.css-maskimages .barButton.backBarButton:after {
   content: '';
   display: block;
   height: 21px;
