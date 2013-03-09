@@ -363,7 +363,7 @@ label {
 /* Visual Styles for navigation views */
 .navigation-title {
   background: -webkit-linear-gradient(top, #c3cbdc 0%, #627296 100%);
-  background: linear-gradient(top, #c3cbdc 0%, #627296 100%);
+  background: linear-gradient(to bottom, #c3cbdc 0%, #627296 100%);
   border-top: 1px solid #fff;
   border-bottom: 1px solid #4a5b7f;
   padding: 0 10px;
@@ -478,8 +478,8 @@ label {
   -ie-transform: rotate( 45deg );
   transform: rotate( 45deg );
   -webkit-mask-image: -webkit-linear-gradient(left bottom, #000 0%, #000 50%, transparent 50%, transparent 100%);
-  -moz-mask-image: -moz-linear-gradient(left bottom, #000 0%, #000 50%, transparent 50%, transparent 100%);
-  mask-image: linear-gradient(left bottom, #000 0%, #000 50%, transparent 50%, transparent 100%);
+  -moz-mask-image: linear-gradient(to top right, #000 0%, #000 50%, transparent 50%, transparent 100%);
+  mask-image: linear-gradient(to top right, #000 0%, #000 50%, transparent 50%, transparent 100%);
   border: 1px solid #95979d;
 }
 /* messages from the current user are blue and to the right */
