@@ -1,0 +1,19 @@
+CACHE MANIFEST
+# version 1
+
+vendor/normalize/normalize.css
+css/styles.css
+vendor/zepto/zepto.min.js
+vendor/underscore/underscore-min.js
+vendor/backbone/backbone-min.js
+vendor/fastclick/fastclick.min.js
+vendor/chatter/chatter.js
+js/views/base.js
+js/views/navigation.js
+js/views/modal.js
+js/templates.js
+js/model.js
+js/app.js
+
+NETWORK:
+*
