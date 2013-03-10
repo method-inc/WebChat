@@ -211,7 +211,7 @@
   var mask_images = ('WebkitMask' in document.body.style
      || 'MozMask' in document.body.style
      || 'OMask' in document.body.style
-     || 'mask' in document.body.style);
+     || 'maskImage' in document.body.style);
   // normally you shouldn't UA sniff but there is a bug in Android that prevents
   // them from working with CSS transforms
   if(navigator.userAgent.toLowerCase().indexOf("android") > -1) {

@@ -1,5 +1,5 @@
 /* size all elements using the border box instead of the padding box */
-* { box-sizing: border-box; }
+* { box-sizing: border-box; -moz-box-sizing: border-box; }
 
 body {
   -webkit-user-select: none;
@@ -14,6 +14,7 @@ body {
 
 /* BUTTONS */
 .btn {
+  display: inline-block;
   border-radius: 5px;
   border: 1px solid #4f5153;
   background: -webkit-linear-gradient(top, #afb3b9 0%, #6d7580 100%);
@@ -135,6 +136,7 @@ textarea {
   margin: 0;
   box-shadow: 0 1px 0 #fff;
   font-size: 1.166667em;
+  display: inline-block;
 }
 
 input[disabled],
